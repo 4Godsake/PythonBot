@@ -10,6 +10,7 @@ from email.mime.text import MIMEText
 from email.header import Header
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.chrome.options import Options
 
 
 class User:
@@ -70,13 +71,14 @@ def imgVerify(image):
 
 class VerificationCode():
     def __init__(self):
-        options = webdriver.ChromeOptions()
-        options.add_argument('--disable-extensions')
-        options.add_argument('--headless')
-        options.add_argument('--disable-gpu')
-        options.add_argument('--no-sandbox')
-        # driver = webdriver.Chrome(options=options)
-        self.driver = webdriver.Chrome(options=options)
+
+        chrome_options = Options()
+        chrome_options.add_argument('--disable-extensions')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--no-sandbox')
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.find_element = self.driver.find_element_by_css_selector
         self.driver.get('http://bcfl.sdufe.edu.cn/index/login')  # 打开登陆页面
 
@@ -178,6 +180,7 @@ class VerificationCode():
             self.driver.find_element_by_id("verify").clear()
 
         except NoAlertPresentException:
+            self.driver.quit()
             print("验证通过")
             return True
         return False
