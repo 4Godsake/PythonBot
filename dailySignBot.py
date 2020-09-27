@@ -71,8 +71,10 @@ def imgVerify(image):
 class VerificationCode():
     def __init__(self):
         options = webdriver.ChromeOptions()
+        options.add_argument('--disable-extensions')
         options.add_argument('--headless')
         options.add_argument('--disable-gpu')
+        options.add_argument('--no-sandbox')
         # driver = webdriver.Chrome(options=options)
         self.driver = webdriver.Chrome(options=options)
         self.find_element = self.driver.find_element_by_css_selector
@@ -205,7 +207,7 @@ def mainFunction(User):
     print("疫情填报成功")
     return
 
-
+#               学号，     密码，      邮箱（用于接收结果）
 rzx = User("20170667227", "051037", "1025744898@qq.com")
 
 if __name__ == '__main__':
