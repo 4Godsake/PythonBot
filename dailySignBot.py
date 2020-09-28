@@ -212,7 +212,18 @@ def mainFunction(User):
     return
 
 #               学号，     密码，      邮箱（用于接收结果）
-rzx = User("20170667227", "051037", "1025744898@qq.com")
+
+# rzx = User("20170667227", "051037", "1025744898@qq.com")
 
 if __name__ == '__main__':
-    mainFunction(rzx)
+    f = open('./user.txt')
+    list = f.readlines()
+    userList = []
+    for i in range(len(list)):
+        userInfo = list[i].split(',')
+        user = User(userInfo[0], userInfo[1], userInfo[2])
+        userList.append(user)
+    #从获取到的user列表循环，执行每个user的main方法
+    for j in range(len(userList)):
+        mainFunction(userList[j])
+
