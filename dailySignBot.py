@@ -21,7 +21,8 @@ class User:
 
 def sendEmail(receiver,content):
     mail_server = "smtp.163.com"
-    mail_port = 25
+    # mail_port = 25
+    mail_port = 465
     sender = "rzx991105@163.com"
     sender_password = "URULCELYDGXSTQPK"  # 授权码
     receivers = receiver
@@ -35,8 +36,8 @@ def sendEmail(receiver,content):
     message['Subject'] = subject
 
     try:
-        smtp_obj = smtplib.SMTP()
-        smtp_obj.connect(mail_server, mail_port)
+        smtp_obj = smtplib.SMTP_SSL(mail_server,mail_port)
+        # smtp_obj.connect(mail_server, mail_port)
         smtp_obj.login(sender, sender_password)
         smtp_obj.sendmail(sender, [receivers], message.as_string())
         print('邮件发送成功!')
