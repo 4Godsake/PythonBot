@@ -13,3 +13,4 @@ for i in range(len(list)):
     user = User(userInfo[0],userInfo[1],userInfo[2])
     userList.append(user)
 print(userList[1].username)
+

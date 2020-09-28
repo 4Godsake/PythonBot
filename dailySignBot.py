@@ -195,7 +195,8 @@ def mainFunction(User):
         loginStat = a.autoSign(User)
         i += 1
         if i > 20:
-            print("连续登陆失败，有空加上发邮件提醒")
+            log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            print("连续登陆失败，有空加上发邮件提醒"+log_time)
             sendEmail(User.email, "填报失败！请手动填报并联系管理员")
             return
     print(User.username+"登陆成功")
@@ -206,11 +207,13 @@ def mainFunction(User):
         submitStat = a.fillForm()
         j += 1
         if j > 20:
-            print("连续提交失败，有空加上发邮件联系管理员")
+            log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            print("连续提交失败,脚本出错？"+log_time)
             sendEmail(User.email, "填报失败！请手动填报并联系管理员")
             return
     sendEmail(User.email, "今日疫情填报完成！")
-    print(User.username+"疫情填报成功")
+    log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    print(User.username+"-疫情填报成功-"+log_time)
     return
 
 #               学号，     密码，      邮箱（用于接收结果）
@@ -221,11 +224,10 @@ if __name__ == '__main__':
     f = open('./user.txt')
     list = f.readlines()
     userList = []
-    for i in range(len(list)):
-        userInfo = list[i].split(',')
-        user = User(userInfo[0], userInfo[1], userInfo[2])
-        userList.append(user)
-    #从获取到的user列表循环，执行每个user的main方法
-    for j in range(len(userList)):
-        mainFunction(userList[j])
-
+    # for i in range(len(list)):
+    #     userInfo = list[i].split(',')
+    #     user = User(userInfo[0], userInfo[1], userInfo[2])
+    #     userList.append(user)
+    # #从获取到的user列表循环，执行每个user的main方法
+    # for j in range(len(userList)):
+    #     mainFunction(userList[j])
