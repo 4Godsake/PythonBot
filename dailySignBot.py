@@ -94,8 +94,8 @@ class VerificationCode():
         #                                     "document.documentElement.scrollHeight,"
         #                                     "document.documentElement.offsetHeight)")
         height=2500
-        print(width)
-        print(height)
+        # print(width)
+        # print(height)
         # resize
         self.driver.set_window_size(width, height)
 
@@ -197,7 +197,8 @@ def mainFunction(User):
         if i > 20:
             print("连续登陆失败，有空加上发邮件提醒")
             sendEmail(User.email, "填报失败！请手动填报并联系管理员")
-    print("登陆成功")
+            return
+    print(User.username+"登陆成功")
 
     submitStat = a.fillForm()
     j = 0
@@ -207,8 +208,9 @@ def mainFunction(User):
         if j > 20:
             print("连续提交失败，有空加上发邮件联系管理员")
             sendEmail(User.email, "填报失败！请手动填报并联系管理员")
+            return
     sendEmail(User.email, "今日疫情填报完成！")
-    print("疫情填报成功")
+    print(User.username+"疫情填报成功")
     return
 
 #               学号，     密码，      邮箱（用于接收结果）
