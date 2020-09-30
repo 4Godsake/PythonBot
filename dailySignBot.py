@@ -24,7 +24,7 @@ def sendEmail(receiver,content):
     # mail_port = 25
     mail_port = 465
     sender = "rzx991105@163.com"
-    sender_password = "URULCELYDGXSTQPK"  # 授权码
+    sender_password = "ABCDEFGHIJKLM"  # 授权码
     receivers = receiver
 
     send_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -214,8 +214,6 @@ def mainFunction(User):
     return
 
 #               学号，     密码，      邮箱（用于接收结果）
-
-# rzx = User("20170667227", "051037", "1025744898@qq.com")
 
 if __name__ == '__main__':
     f = open('./user.txt')
