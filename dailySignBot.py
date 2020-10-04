@@ -19,20 +19,19 @@ class User:
         self.password = psw
         self.email = email
 
-def sendEmail(receiver,content):
+def sendEmail(receiver,content,subject):
     mail_server = "smtp.163.com"
     # mail_port = 25
     mail_port = 465
     sender = "rzx991105@163.com"
     sender_password = "URULCELYDGXSTQPK"  # 授权码
     receivers = receiver
-
+    # content = '山财大疫情填报结果 noreply'
     send_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     message = MIMEText(content + send_time, 'plain', 'utf-8')
     message['From'] = sender
     message['To'] = receivers
 
-    subject = '山财大疫情填报结果 noreply'
     message['Subject'] = subject
 
     try:
@@ -45,6 +44,7 @@ def sendEmail(receiver,content):
         print('邮件发送失败!')
         print(e)
     return
+
 
 def convert_img(img_url):
     with open(img_url, "rb") as f:  # 转为二进制格式
@@ -194,10 +194,10 @@ def mainFunction(User):
     while loginStat != True:
         loginStat = a.autoSign(User)
         i += 1
-        if i > 20:
+        if i > 10:
             log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             print("连续登陆失败"+log_time)
-            sendEmail(User.email, "填报失败！请手动填报并联系管理员")
+            sendEmail(User.email, "填报失败！请手动填报并联系管理员","疫情填报失败！")
             return
     log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(User.username+"登陆成功"+log_time)
@@ -207,12 +207,12 @@ def mainFunction(User):
     while submitStat != True:
         submitStat = a.fillForm()
         j += 1
-        if j > 20:
+        if j > 10:
             log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             print("连续提交失败"+log_time)
-            sendEmail(User.email, "填报失败！请手动填报并联系管理员")
+            sendEmail(User.email, "填报失败！请手动填报并联系管理员","疫情填报失败！")
             return
-    sendEmail(User.email, "今日疫情填报完成！")
+    sendEmail(User.email, "今日疫情填报完成！","疫情填报成功！")
     log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(User.username+":疫情填报成功-"+log_time)
     return
@@ -222,7 +222,8 @@ def mainFunction(User):
 # rzx = User("20170667227", "051037", "1025744898@qq.com")
 
 if __name__ == '__main__':
-    f = open('/opt/PythonBot/user.txt')
+    f = open('./user.txt')
+    # f = open('/opt/PythonBot/user.txt')
     list = f.readlines()
     userList = []
     for i in range(len(list)):
