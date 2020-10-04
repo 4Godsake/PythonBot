@@ -13,8 +13,8 @@ send_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 message = MIMEText("testing" + send_time, 'plain', 'utf-8')
 message['From'] = sender
 message['To'] = receivers
-
-subject = '测试'
+rst = '成功'
+subject = '疫情填报结果:'+rst
 message['Subject'] = subject
 
 try:

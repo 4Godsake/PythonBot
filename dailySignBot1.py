@@ -19,20 +19,19 @@ class User:
         self.password = psw
         self.email = email
 
-def sendEmail(receiver,content):
+def sendEmail(receiver,content,subject):
     mail_server = "smtp.163.com"
     # mail_port = 25
     mail_port = 465
     sender = "rzx991105@163.com"
     sender_password = "URULCELYDGXSTQPK"  # 授权码
     receivers = receiver
-
+    # content = '山财大疫情填报结果 noreply'
     send_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     message = MIMEText(content + send_time, 'plain', 'utf-8')
-    message['From'] = sender
+    message['From'] = '山财大疫情填报'
     message['To'] = receivers
 
-    subject = '山财大疫情填报结果 noreply'
     message['Subject'] = subject
 
     try:
@@ -209,9 +208,9 @@ def mainFunction(User):
         if j > 20:
             log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             print("连续提交失败,脚本出错？"+log_time)
-            sendEmail(User.email, "填报失败！请手动填报并联系管理员")
+            sendEmail(User.email, "填报失败！请手动填报并联系管理员","疫情填报失败！")
             return
-    sendEmail(User.email, "今日疫情填报完成！")
+    sendEmail(User.email, "今日疫情填报完成！","疫情填报成功！")
     log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(User.username+"-疫情填报成功-"+log_time)
     return
